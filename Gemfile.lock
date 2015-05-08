@@ -16,4 +16,5 @@ PLATFORMS
 
 DEPENDENCIES
   json
+  rack
   sinatra
