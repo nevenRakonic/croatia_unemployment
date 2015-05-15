@@ -1,5 +1,8 @@
 require 'sinatra'
+require "sinatra/activerecord"
 require 'json'
+
+# set :database_file, "config/database.yml"
 
 get '/' do
   erb :index
