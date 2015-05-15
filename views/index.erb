@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <title>Unemployment Croatia</title>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js">
+  </script>
 
 </head>
 <body>
   <h1>Yo!!</h1>
-  <canvas id="myChart" width="400" height="400"></canvas>
+  <svg id="myChart" width="400" height="400"></svg>
 </body>
 </html>
 
@@ -19,35 +20,28 @@
   $(function() {
 
     function initializeChart(data) {
-    var data = {
-              labels: data.time_series,
-              datasets: [
-                  {
-                      label: "Openings",
-                      fillColor: "rgba(220,220,220,0.2)",
-                      strokeColor: "rgba(220,220,220,1)",
-                      pointColor: "rgba(220,220,220,1)",
-                      pointStrokeColor: "#fff",
-                      pointHighlightFill: "#fff",
-                      pointHighlightStroke: "rgba(220,220,220,1)",
-                      data: data.openings
-                  },
-                  {
-                      label: "Unemployes people",
-                      fillColor: "rgba(151,187,205,0.2)",
-                      strokeColor: "rgba(151,187,205,1)",
-                      pointColor: "rgba(151,187,205,1)",
-                      pointStrokeColor: "#fff",
-                      pointHighlightFill: "#fff",
-                      pointHighlightStroke: "rgba(151,187,205,1)",
-                      data: data.unemployed
-                  }
-              ]
-          };
+
+      var data = [{
+          "sale": "202",
+          "year": "2000"
+      }, {
+          "sale": "215",
+          "year": "2001"
+      }, {
+          "sale": "179",
+          "year": "2002"
+      }, {
+          "sale": "199",
+          "year": "2003"
+      }, {
+          "sale": "134",
+          "year": "2003"
+      }, {
+          "sale": "176",
+          "year": "2010"
+      }];
 
 
-      var ctx = document.getElementById("myChart").getContext("2d");
-      var myLineChart = new Chart(ctx).Line(data);
 
     }
 
