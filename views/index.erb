@@ -8,44 +8,87 @@
 
 </head>
 <body>
-
+  <h1>Yo!!</h1>
+  <canvas id="myChart" width="400" height="400"></canvas>
 </body>
 </html>
 
 
-<h1>Yo!!</h1>
-<canvas id="myChart" width="400" height="400"></canvas>
+
 <script>
-  // var data = {
-  //                 labels: ["January", "February", "March", "April", "May", "June", "July"],
-  //                 datasets: [
-  //                     {
-  //                         label: "My First dataset",
-  //                         fillColor: "rgba(220,220,220,0.2)",
-  //                         strokeColor: "rgba(220,220,220,1)",
-  //                         pointColor: "rgba(220,220,220,1)",
-  //                         pointStrokeColor: "#fff",
-  //                         pointHighlightFill: "#fff",
-  //                         pointHighlightStroke: "rgba(220,220,220,1)",
-  //                         data: [65, 59, 80, 81, 56, 55, 40]
-  //                     },
-  //                     {
-  //                         label: "My Second dataset",
-  //                         fillColor: "rgba(151,187,205,0.2)",
-  //                         strokeColor: "rgba(151,187,205,1)",
-  //                         pointColor: "rgba(151,187,205,1)",
-  //                         pointStrokeColor: "#fff",
-  //                         pointHighlightFill: "#fff",
-  //                         pointHighlightStroke: "rgba(151,187,205,1)",
-  //                         data: [28, 48, 40, 19, 86, 27, 90]
-  //                     }
-  //                 ]
-  //             };
+  $(function() {
+
+    function initializeChart(data) {
+    var data = {
+              labels: data.time_series,
+              datasets: [
+                  {
+                      label: "Openings",
+                      fillColor: "rgba(220,220,220,0.2)",
+                      strokeColor: "rgba(220,220,220,1)",
+                      pointColor: "rgba(220,220,220,1)",
+                      pointStrokeColor: "#fff",
+                      pointHighlightFill: "#fff",
+                      pointHighlightStroke: "rgba(220,220,220,1)",
+                      data: data.openings
+                  },
+                  {
+                      label: "Unemployes people",
+                      fillColor: "rgba(151,187,205,0.2)",
+                      strokeColor: "rgba(151,187,205,1)",
+                      pointColor: "rgba(151,187,205,1)",
+                      pointStrokeColor: "#fff",
+                      pointHighlightFill: "#fff",
+                      pointHighlightStroke: "rgba(151,187,205,1)",
+                      data: data.unemployed
+                  }
+              ]
+          };
 
 
-  // var ctx = document.getElementById("myChart").getContext("2d");
-  // var myLineChart = new Chart(ctx).Line(data);
-  $.getJSON( "/.json", function( data ) {
-    console.log(data)
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var myLineChart = new Chart(ctx).Line(data);
+
+    }
+
+    function processData(data) {
+      var unemployed_array = [];
+      var openings_array = [];
+      var time_array = [];
+
+      $.each(data, function(i, val) {
+        unemployed_array.push(val.unemployed_people);
+        openings_array.push(val.job_openings);
+        time_array.push(val.created_at);
+      });
+
+      var processed_data = {
+        unemployed: unemployed_array,
+        openings: openings_array,
+        time_series: time_array
+      }
+
+      return processed_data;
+    }
+
+    function chartCallback(data) {
+
+      var processed_data = processData(data);
+      initializeChart(processed_data);
+
+    }
+
+    function getData(chartCallback) {
+      $.getJSON( "/.json", function( data ) {
+        // getJSON is asynchronous so data would be lost outside of scope
+        chartCallback(data)
+      });
+    }
+
+    getData(chartCallback);
+
+
   });
+
+
 </script>

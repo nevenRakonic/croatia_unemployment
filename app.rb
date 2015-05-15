@@ -1,6 +1,7 @@
 require 'sinatra'
-require "sinatra/activerecord"
+require 'sinatra/activerecord'
 require 'json'
+require './models'
 
 # set :database_file, "config/database.yml"
 
@@ -10,6 +11,6 @@ end
 
 get '/.json' do
   content_type :json
-  { unemployed: 5, dead: 7 }.to_json
+  UnemploymentData.all.to_json
 end
 
