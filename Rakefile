@@ -6,3 +6,5 @@ namespace :db do
     require './app'
   end
 end
+
+Dir.glob('tasks/*.rake').each { |r| load r}

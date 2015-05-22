@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <title>Unemployment Croatia</title>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.8.0/chartist.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.8.0/chartist.min.js">
   </script>
 
 </head>
 <body>
   <h1>Yo!!</h1>
-  <svg id="myChart" width="400" height="400"></svg>
+  <div class="ct-chart ct-double-octave"></div>
 </body>
 </html>
 
@@ -20,29 +21,21 @@
   $(function() {
 
     function initializeChart(data) {
+      var chart_data = {
+        labels:    data.time_series,
+        series: [data.openings, data.unemployed]
+      }
 
-      var data = [{
-          "sale": "202",
-          "year": "2000"
-      }, {
-          "sale": "215",
-          "year": "2001"
-      }, {
-          "sale": "179",
-          "year": "2002"
-      }, {
-          "sale": "199",
-          "year": "2003"
-      }, {
-          "sale": "134",
-          "year": "2003"
-      }, {
-          "sale": "176",
-          "year": "2010"
-      }];
+      new Chartist.Line('.ct-chart', chart_data);
+    }
 
+    function process_date(raw_date) {
+      var converted_date = new Date(raw_date);
+      var day = converted_date.getDate();
+      var month = converted_date.getMonth() + 1; //Months are zero based
+      var year = converted_date.getFullYear();
 
-
+      return day + "-" + month + "-" + year;
     }
 
     function processData(data) {
@@ -53,7 +46,7 @@
       $.each(data, function(i, val) {
         unemployed_array.push(val.unemployed_people);
         openings_array.push(val.job_openings);
-        time_array.push(val.created_at);
+        time_array.push(process_date(val.fetch_time));
       });
 
       var processed_data = {
@@ -66,7 +59,6 @@
     }
 
     function chartCallback(data) {
-
       var processed_data = processData(data);
       initializeChart(processed_data);
 

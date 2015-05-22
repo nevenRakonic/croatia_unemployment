@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20150515110806) do
   create_table "unemployment_data", force: :cascade do |t|
     t.integer  "unemployed_people", null: false
     t.integer  "job_openings",      null: false
+    t.datetime "fetch_time",        null: false
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end

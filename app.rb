@@ -9,6 +9,6 @@ end
 
 get '/.json' do
   content_type :json
-  UnemploymentData.all_data_with_unix_time.to_json
+  UnemploymentData.all.to_json
 end
 
