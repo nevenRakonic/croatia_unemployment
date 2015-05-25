@@ -1,0 +1,14 @@
+body {
+  width: 100%;
+  display: block;
+}
+
+.mg-chart-title {
+  font-family: 'Helvetica', 'sans-serif';
+  font-size: 1.5em;
+}
+
+.linked {
+  display: block;
+  margin: auto;
+}
