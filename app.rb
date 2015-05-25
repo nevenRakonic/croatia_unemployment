@@ -7,8 +7,13 @@ get '/' do
   erb :index
 end
 
-get '/.json' do
+get '/unemployed.json' do
   content_type :json
-  UnemploymentData.all.to_json
+  UnemploymentData.select("fetch_time, unemployed_people").to_json
+end
+
+get '/openings.json' do
+  content_type :json
+  UnemploymentData.select("fetch_time, job_openings").to_json
 end
 

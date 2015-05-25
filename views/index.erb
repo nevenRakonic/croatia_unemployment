@@ -4,14 +4,16 @@
   <meta charset="UTF-8">
   <title>Unemployment Croatia</title>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.8.0/chartist.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.8.0/chartist.min.js">
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.0/d3.min.js' charset='utf-8'></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/metrics-graphics/2.5.0/metricsgraphics.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/metrics-graphics/2.5.0/metricsgraphics.js">
   </script>
 
 </head>
 <body>
   <h1>Yo!!</h1>
-  <div class="ct-chart ct-double-octave"></div>
+  <div id="unemployed"></div>
+  <div id="openings"></div>
 </body>
 </html>
 
@@ -20,59 +22,45 @@
 <script>
   $(function() {
 
-    function initializeChart(data) {
-      var chart_data = {
-        labels:    data.time_series,
-        series: [data.openings, data.unemployed]
-      }
+    var time_format = '%Y-%m-%dT%H:%M:%S.%LZ' // rails compatible time
 
-      new Chartist.Line('.ct-chart', chart_data);
-    }
+    d3.json('/unemployed.json', function(data) {
 
-    function process_date(raw_date) {
-      var converted_date = new Date(raw_date);
-      var day = converted_date.getDate();
-      var month = converted_date.getMonth() + 1; //Months are zero based
-      var year = converted_date.getFullYear();
+        data = MG.convert.date(data, 'fetch_time', time_format);
 
-      return day + "-" + month + "-" + year;
-    }
+        MG.data_graphic({
+            title: "Broj nezaposlenih na HZZ",
+            description: false,
+            data: data,
+            width: 600,
+            height: 200,
+            right: 40,
+            target: document.getElementById('unemployed'),
+            x_accessor: 'fetch_time',
+            y_accessor: 'unemployed_people',
+            min_y_from_data: true,
+            linked: true
+        });
+    });
 
-    function processData(data) {
-      var unemployed_array = [];
-      var openings_array = [];
-      var time_array = [];
+    d3.json('/openings.json', function(data) {
 
-      $.each(data, function(i, val) {
-        unemployed_array.push(val.unemployed_people);
-        openings_array.push(val.job_openings);
-        time_array.push(process_date(val.fetch_time));
-      });
+        data = MG.convert.date(data, 'fetch_time', time_format);
 
-      var processed_data = {
-        unemployed: unemployed_array,
-        openings: openings_array,
-        time_series: time_array
-      }
-
-      return processed_data;
-    }
-
-    function chartCallback(data) {
-      var processed_data = processData(data);
-      initializeChart(processed_data);
-
-    }
-
-    function getData(chartCallback) {
-      $.getJSON( "/.json", function( data ) {
-        // getJSON is asynchronous so data would be lost outside of scope
-        chartCallback(data)
-      });
-    }
-
-    getData(chartCallback);
-
+        MG.data_graphic({
+            title: "Broj otvorenih radnih mjesta na HZZ",
+            description: false,
+            data: data,
+            width: 600,
+            height: 200,
+            right: 40,
+            target: document.getElementById('openings'),
+            x_accessor: 'fetch_time',
+            y_accessor: 'job_openings',
+            min_y_from_data: true,
+            linked: true
+        });
+    });
 
   });
 
