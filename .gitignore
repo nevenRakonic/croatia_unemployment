@@ -1,1 +1,5 @@
+unicorn.rb
+pids/
+tmp/
+logs/
 .DS_Store
