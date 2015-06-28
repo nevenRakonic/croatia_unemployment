@@ -10,7 +10,7 @@ task :job_scraper do
   job_openings = page.css("html//body//div#pnlOld//div.statistika_pozadina//span#lblRadnika").inner_text
 
   # write the data to a text file
-  f = File.open("data.txt", "a+")
+  f = File.open("data/data.txt", "a+")
   f.puts "time: #{Time.now} unemployed: #{currently_unemployed}  job_openings: #{job_openings}"
   f.close
 end

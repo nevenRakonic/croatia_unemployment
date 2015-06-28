@@ -1,4 +1,5 @@
 unicorn.rb
+data/
 pids/
 tmp/
 logs/

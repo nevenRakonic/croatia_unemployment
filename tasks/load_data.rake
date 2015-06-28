@@ -1,5 +1,5 @@
 task :load_data do
-  f = File.open("tasks/data.txt",'r')
+  f = File.open("data/data.txt",'r')
 
   f.each do |line|
     db_row = UnemploymentData.new
