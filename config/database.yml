@@ -2,13 +2,13 @@ development:
   adapter:  postgresql
   host: 127.0.0.1
   database: job_graph_dev
-  username: ENV["DB_USERNAME"] 
-  password: ENV["DB_PASSWORD"]
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
 
 production:
   adapter: postgresql
   host: 127.0.0.1
   database: job_graph_production
-  username: ENV["DB_USERNAME"] 
-  password: ENV["DB_PASSWORD"]
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_USERNAME"] %>
 
