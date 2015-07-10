@@ -10,5 +10,5 @@ production:
   host: 127.0.0.1
   database: job_graph_production
   username: <%= ENV["DB_USERNAME"] %>
-  password: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
 
