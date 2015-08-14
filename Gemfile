@@ -8,3 +8,4 @@ gem "activerecord"
 gem "sinatra-activerecord"
 gem 'nokogiri'
 gem 'whenever', require: false
+gem 'rake'
