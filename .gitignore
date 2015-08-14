@@ -3,4 +3,5 @@ data/
 pids/
 tmp/
 logs/
+tasks/data.txt
 .DS_Store
