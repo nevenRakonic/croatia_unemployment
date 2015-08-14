@@ -20,7 +20,7 @@
 # Learn more: http://github.com/javan/whenever
 env :PATH, ENV['PATH']
 env :GEM_PATH, ENV['GEM_PATH']
-set :output, "../logs/cron.log"
+set :output, "~/croatia_unemployment/logs/cron.log"
 
 
 
