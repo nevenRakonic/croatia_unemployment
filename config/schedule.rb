@@ -20,9 +20,9 @@
 # Learn more: http://github.com/javan/whenever
 env :PATH, ENV['PATH']
 env :GEM_PATH, ENV['GEM_PATH']
+env :DB_USERNAME, ENV['DB_USERNAME']
+env :DB_PASSWORD, ENV['DB_PASSWORD']
 set :output, "~/croatia_unemployment/logs/cron.log"
-
-
 
 every 4.hours do
   rake "job_scraper"
