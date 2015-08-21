@@ -26,5 +26,4 @@ set :output, "~/croatia_unemployment/logs/cron.log"
 
 every 4.hours do
   rake "job_scraper"
-  rake "load_data"
 end

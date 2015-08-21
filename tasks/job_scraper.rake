@@ -12,6 +12,7 @@ task :job_scraper do
   # write the data to a text file
   f = File.open("data/data.txt", "a+")
   f.puts "time: #{Time.now} unemployed: #{currently_unemployed}  job_openings: #{job_openings}"
+  UnemploymentData.create(fetch_time: Time.now,
+    unemployed_people: currently_unemployed, job_openings: job_openings)
   f.close
 end
-
