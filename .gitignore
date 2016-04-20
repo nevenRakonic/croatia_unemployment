@@ -5,3 +5,4 @@ tmp/
 logs/
 tasks/data.txt
 .DS_Store
+config/scheduler.rb
