@@ -7,7 +7,7 @@ $(function() {
         data = MG.convert.date(data, 'fetch_time', time_format);
 
         MG.data_graphic({
-            title: "Broj nezaposlenih na HZZ",
+            title: "Number of unemployed at the unemployment bureau",
             description: false,
             data: data,
             width: 600,
@@ -26,7 +26,7 @@ $(function() {
         data = MG.convert.date(data, 'fetch_time', time_format);
 
         MG.data_graphic({
-            title: "Broj otvorenih radnih mjesta na HZZ",
+            title: "Number of job openings",
             description: false,
             data: data,
             width: 600,
